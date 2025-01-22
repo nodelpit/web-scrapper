@@ -23,6 +23,11 @@ module WebScrapper
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 
+    # Configuration i18n pour les traductions
+    config.i18n.default_locale = :fr                 # Définit le français comme langue par défaut
+    config.i18n.available_locales = [ :fr ]          # Définit les langues disponibles
+    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]  # Charge tous les fichiers de tra
+
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
