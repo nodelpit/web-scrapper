@@ -11,4 +11,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
+
+  namespace :auth do
+    resource :registration
+    resource :session
+    resource :password_reset
+    resource :password
+  end
 end
