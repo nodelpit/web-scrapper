@@ -1,4 +1,5 @@
 name: CI
+
 on:
   pull_request:
   push:
@@ -10,11 +11,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
 
@@ -23,11 +26,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
 
@@ -36,11 +41,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+
       - name: Lint code for consistent style
         run: bin/rubocop -f github
 
@@ -68,6 +75,15 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'yarn'
+
+      - name: Install Yarn dependencies
+        run: yarn install
+
       - name: Setup test database
         env:
           RAILS_ENV: test
@@ -77,6 +93,12 @@ jobs:
         run: |
           bin/rails db:create
           bin/rails db:schema:load
+
+      - name: Precompile assets
+        env:
+          RAILS_ENV: test
+        run: |
+          bin/rails assets:precompile
 
       - name: Run tests
         env:
