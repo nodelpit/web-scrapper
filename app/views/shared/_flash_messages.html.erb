@@ -1,0 +1,9 @@
+<%= turbo_frame_tag "flash-messages" do %>
+  <% flash.each do |type, message| %>
+    <div data-controller="flash" class="container max-w-xl mx-auto mt-5 ml-5 z-50 fixed">
+      <div class="<%= render_flash_messages(type) %> p-4 mb-4">
+        <p><%= message %></p>
+      </div>
+    </div>
+  <% end %>
+<% end %>
