@@ -1,0 +1,63 @@
+<div class="min-h-screen flex flex-col items-center justify-center">
+  <div class="max-w-md w-full space-y-8 shadow-lg p-10 rounded-lg">
+    <!-- En-tête du formulaire -->
+    <div>
+      <h1 class="text-center text-2xl font-bold text-gray-900 mb-8"><%= t(".title") %></h1>
+    </div>
+
+    <%= form_with url: auth_session_path, class: "mt-8 space-y-6" do |form| %>
+  <!-- Message d'erreur de connexion -->
+      <% if flash.now[:error] %>
+        <div class="rounded-md bg-red-50 p-4 mb-6">
+          <div class="text-sm text-red-700">
+            <%= t(".invalid_credentials") %>
+          </div>
+        </div>
+      <% end %>
+      <!-- Champs du formulaire -->
+      <div class="rounded-md shadow-sm -space-y-px">
+        <!-- Le reste du formulaire reste identique -->
+        <div class="mb-6">
+          <%= form.label :email, t(".email_label"),
+              class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= form.email_field :email,
+              class: "appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm",
+              placeholder: t(".email_placeholder") %>
+        </div>
+
+        <!-- Champ Mot de passe -->
+        <div class="mb-6">
+          <%= form.label :password, t(".password_label"),
+              class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= form.password_field :password,
+              class: "appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm",
+              placeholder: t(".password_placeholder") %>
+        </div>
+      </div>
+
+      <!-- Section "Se souvenir de moi" et "Mot de passe oublié" -->
+      <div class="flex items-center justify-between mb-6">
+        <!-- Option "Se souvenir de moi" -->
+        <div class="flex items-center">
+          <%= form.check_box :remember_me,
+              class: "h-4 w-4 text-red-500 focus:ring-red-500 border-gray-300 rounded" %>
+          <%= form.label :remember_me, t(".remember_me"),
+              class: "ml-2 block text-sm text-gray-900" %>
+        </div>
+
+        <!-- Lien "Mot de passe oublié" -->
+        <div class="text-sm">
+          <%= link_to t(".forgot_password"),
+              new_auth_password_reset_path,
+              class: "text-red-500 hover:text-red-800 transition-colors" %>
+        </div>
+      </div>
+
+      <!-- Bouton de soumission -->
+      <div>
+        <%= form.submit t(".submit"),
+            class: "w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-800 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" %>
+      </div>
+    <% end %>
+  </div>
+</div>

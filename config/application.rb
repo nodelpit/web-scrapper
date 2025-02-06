@@ -26,6 +26,7 @@ module WebScrapper
     # Configuration i18n pour les traductions
     config.i18n.default_locale = :fr                 # Définit le français comme langue par défaut
     config.i18n.available_locales = [ :fr ]          # Définit les langues disponibles
+    config.i18n.fallbacks = true                     # Ajoute un mécanisme de repli
     config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]  # Charge tous les fichiers de tra
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do

@@ -1,2 +1,113 @@
 fr:
-  hello: "Bonjour"
+  errors:
+    messages:
+      confirmation: "Les mots de passe ne correspondent pas"
+      blank: "Ce champ ne peut pas être vide"
+      too_short: "Ce champ est trop court (minimum %{count} caractères)"
+
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            # Validation d'email
+            email:
+              blank: "L'adresse email est obligatoire"
+              invalid: "L'adresse email saisie n'est pas valide"
+              taken: "Cette adresse email est déjà utilisée"
+            # Validation de mot de passe
+            password:
+              blank: "Le mot de passe est obligatoire"
+              too_short: "Le mot de passe doit contenir au moins %{count} caractères"
+            # Confirmation de mot de passe
+            password_confirmation:
+              confirmation: "Les mots de passe ne correspondent pas"
+              blank: "La confirmation du mot de passe est obligatoire"
+            # Validation du mot de passe actuel lors d'un changement
+            password_challenge:
+              invalid: "Le mot de passe actuel est incorrect"
+
+  auth:
+    # Formulaire de connexion
+    sessions:
+      new:
+        title: "Connexion"
+        email_label: "Adresse email"
+        email_placeholder: "Votre adresse email"
+        password_label: "Mot de passe"
+        password_placeholder: "Votre mot de passe"
+        remember_me: "Se souvenir de moi"
+        forgot_password: "Mot de passe oublié ?"
+        submit: "Se connecter"
+      # Messages de création de session
+      create:
+        signed_in_successfully: "Connexion réussie"
+        invalid_credentials: "Email ou mot de passe incorrect"
+      # Messages de déconnexion
+      destroy:
+        signed_out_successfully: "Vous avez été déconnecté avec succès"
+      # Messages d'authentification généraux
+      authentication:
+        login_required: "Vous devez être connecté pour accéder à cette page"
+
+    # Formulaire d'inscription
+    registrations:
+      new:
+        title: "Créer un compte"
+        email_label: "Adresse email"
+        email_placeholder: "Votre adresse email"
+        password_label: "Mot de passe"
+        password_placeholder: "Votre mot de passe"
+        password_confirmation_label: "Confirmation du mot de passe"
+        password_confirmation_placeholder: "Confirmez votre mot de passe"
+        submit: "S'inscrire"
+      create:
+        account_created: "Votre compte a été créé avec succès"
+
+    # Modification et réinitialisation du mot de passe
+    passwords:
+      reset:
+        title: "Réinitialiser votre mot de passe"
+        new_password_label: "Nouveau mot de passe"
+        new_password_placeholder: "Votre nouveau mot de passe"
+        password_confirmation_label: "Confirmation du nouveau mot de passe"
+        password_confirmation_placeholder: "Confirmez votre nouveau mot de passe"
+        submit: "Réinitialiser"
+      new:
+        title: "Réinitialisation du mot de passe"
+        email_label: "Adresse email"
+        email_placeholder: "Votre adresse email"
+        submit: "Réinitialiser"
+      edit:
+        title: "Mettre à jour votre mot de passe"
+        current_password_label: "Mot de passe actuel"
+        current_password_placeholder: "Votre mot de passe actuel"
+        new_password_label: "Nouveau mot de passe"
+        new_password_placeholder: "Votre nouveau mot de passe"
+        password_confirmation_label: "Confirmation du nouveau mot de passe"
+        password_confirmation_placeholder: "Confirmez votre nouveau mot de passe"
+        submit: "Mettre à jour le mot de passe"
+      update:
+        password_changed: "Votre mot de passe a été mis à jour avec succès"
+        error: "Une erreur s'est produite lors de la mise à jour du mot de passe"
+        # Ajoute cette ligne ici pour la mise à jour du mot de passe
+        password_reset_success: "Votre mot de passe a été réinitialisé avec succès"
+      create:
+        check_email: "Si un compte existe pour cet email, vous recevrez un lien de réinitialisation"
+
+    # Gestion spécifique aux réinitialisations (PasswordResetsController)
+    password_resets:
+      create:
+        check_email: "Si un compte existe pour cet email, vous recevrez un lien de réinitialisation"
+      update:
+        password_reset_success: "Votre mot de passe a été réinitialisé avec succès"
+      set_user_by_token:
+        invalid_token: "Le lien de réinitialisation est invalide ou a expiré"
+
+  # Messages généraux de l'application
+  common:
+    actions:
+      back: "Retour"
+      cancel: "Annuler"
+      save: "Enregistrer"
+      confirm: "Êtes-vous sûr ?"

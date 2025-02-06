@@ -1,0 +1,15 @@
+<!-- app/views/auth/shared/_navbar.html.erb -->
+<nav class="bg-red-500 text-white p-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <%= link_to "← Back to Modules", root_path, class: "text-white hover:text-gray-300" %>
+    <div class="flex items-center space-x-4">
+      <% if user_signed_in? %>
+        <%= link_to "Edit Password", edit_auth_password_path, class: "text-white hover:text-gray-300 mr-4" %>
+        <%= button_to "Log out", auth_session_path, method: :delete, class: "text-white hover:text-gray-300" %>
+      <% else %>
+        <%= link_to "Sign up", new_auth_registration_path, class: "text-white hover:text-gray-300 mr-4" %>
+        <%= link_to "Log in", new_auth_session_path, class: "text-white hover:text-gray-300" %>
+      <% end %>
+    </div>
+  </div>
+</nav>
