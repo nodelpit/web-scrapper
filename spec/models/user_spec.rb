@@ -112,11 +112,13 @@ RSpec.describe User, type: :model do
 
    # Vérifie que le token reste le même si rien ne change
    it "generates consistent tokens for same data" do
-     user.save
-     token1 = user.generate_token_for(:remember_me)
-     token2 = user.generate_token_for(:remember_me)
-     expect(token1).to eq(token2) # Les tokens doivent être identiques car les données sont les mêmes
-   end
+    user.save
+    token1 = user.generate_token_for(:remember_me)
+    # Simule un autre appel de génération de token pour le même utilisateur
+    token2 = user.generate_token_for(:remember_me)
+    expect(token1).to eq(token2) # Les tokens doivent être identiques car les données sont les mêmes
+  end
+
 
    # Vérifie que les tokens sont différents entre utilisateurs
    it "generates different tokens for different users" do

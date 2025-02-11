@@ -30,7 +30,7 @@ class User < ApplicationRecord
   # Pour la fonctionnalité "Se souvenir de moi"
   generates_token_for :remember_me, expires_in: 2.weeks do
     # On utilise une combinaison de l'id et du password_salt pour plus de sécurité
-    "#{id}#{password_salt&.last(10)}"
+    "#{id}-#{password_digest}"
   end
 
   # Pour éviter les problèmes de sécurité, on invalide le token si le mot de passe change
