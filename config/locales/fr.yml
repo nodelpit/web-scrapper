@@ -7,6 +7,8 @@ fr:
 
   activerecord:
     errors:
+      messages:
+        record_invalid: "La validation a échoué : %{errors}"
       models:
         user:
           attributes:
@@ -90,7 +92,6 @@ fr:
       update:
         password_changed: "Votre mot de passe a été mis à jour avec succès"
         error: "Une erreur s'est produite lors de la mise à jour du mot de passe"
-        # Ajoute cette ligne ici pour la mise à jour du mot de passe
         password_reset_success: "Votre mot de passe a été réinitialisé avec succès"
       create:
         check_email: "Si un compte existe pour cet email, vous recevrez un lien de réinitialisation"
@@ -103,6 +104,34 @@ fr:
         password_reset_success: "Votre mot de passe a été réinitialisé avec succès"
       set_user_by_token:
         invalid_token: "Le lien de réinitialisation est invalide ou a expiré"
+
+  admin:
+    base:
+      unauthorized: "Accès non autorisé"
+    users:
+      index:
+        title: "Gestion des utilisateurs"
+        email: "Email"
+        role: "Rôle"
+        created_at: "Date d'inscription"
+        actions: "Actions"
+        edit: "Modifier"
+        search_placeholder: "Rechercher par email..."
+        search: "Rechercher"
+
+      edit:
+        title: "Modifier l'utilisateur"
+        email: "Email"
+        role: "Rôle"
+        cancel: "Annuler"
+        update: "Mettre à jour"
+        delete: "Supprimer"
+        confirm_delete: "Êtes-vous sûr de vouloir supprimer cet utilisateur ?"
+      update:
+        success: "Utilisateur mis à jour avec succès"
+      destroy:
+        admin_error: "L'administrateur principal ne peut pas être supprimé"
+        success: "Utilisateur supprimé avec succès"
 
   # Messages généraux de l'application
   common:
