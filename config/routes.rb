@@ -18,4 +18,9 @@ Rails.application.routes.draw do
     resource :password_reset
     resource :password
   end
+
+  namespace :admin do
+    root to: "dashboard#index"
+    resources :users
+  end
 end

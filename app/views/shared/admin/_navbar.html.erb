@@ -1,0 +1,14 @@
+<nav class="bg-white shadow-lg">
+  <div class="mx-auto px-4">
+    <div class="flex justify-between h-16">
+      <div class="flex">
+        <%= link_to 'Dashboard', admin_root_path, class: 'px-3 py-2 rounded-md text-sm font-medium text-gray-900' %>
+        <%= link_to 'Utilisateurs', admin_users_path, class: 'px-3 py-2 rounded-md text-sm font-medium text-gray-900' %>
+      </div>
+      <div class="flex items-center">
+        <span class="text-gray-600 mr-4"><%= current_user.email %></span>
+        <%= button_to 'Déconnexion', auth_session_path, method: :delete, class: 'bg-red-500 text-white px-4 py-2 rounded' %>
+      </div>
+    </div>
+  </div>
+</nav>

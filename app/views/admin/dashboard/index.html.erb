@@ -1,0 +1,32 @@
+<div class="bg-white shadow-md rounded-lg p-6">
+  <h1 class="text-2xl font-bold mb-6">Tableau de bord administrateur</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <%# Carte des statistiques utilisateurs %>
+    <div class="bg-blue-50 p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold text-blue-700">Total Utilisateurs</h3>
+      <p class="text-3xl font-bold text-blue-900"><%= @total_users %></p>
+    </div>
+
+    <%# Carte de répartition des rôles %>
+    <div class="bg-green-50 p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold text-green-700">Utilisateurs par rôle</h3>
+      <% @users_by_role.each do |role, count| %>
+        <div class="mt-2 flex justify-between items-center">
+          <span class="font-medium text-green-900"><%= role.titleize %></span>
+          <span class="text-green-800 font-bold"><%= count %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%# Section des actions rapides %>
+  <div class="mt-8">
+    <h2 class="text-xl font-semibold mb-4">Actions rapides</h2>
+    <div class="flex space-x-4">
+      <%= link_to admin_users_path, class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition" do %>
+        <span>Gérer les utilisateurs</span>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -50,7 +50,9 @@ module Auth
       if params[:remember_me] == "1"
         cookies.encrypted[:remember_user_token] = {
           value: user.id,
-          expires: 2.weeks.from_now
+          expires: 2.weeks.from_now,
+          httponly: true,
+          secure: Rails.env.production?
         }
       end
     end
