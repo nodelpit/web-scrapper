@@ -34,7 +34,9 @@ module Admin
     private
 
     def user_params
-      params.require(:user).permit(:role)
+      permitted_params = [ :email, :password, :password_confirmation ]
+      permitted_params << :role if current_user.admin?
+      params.require(:user).permit(permitted_params)
     end
   end
 end

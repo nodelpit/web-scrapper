@@ -49,39 +49,39 @@ RSpec.describe ApplicationController, type: :controller do
   end
 
   describe '#authenticate_user!' do
-  it 'redirects to root path when user is not signed in' do
-    # Forcer explicitement la locale
-    I18n.locale = :fr
+    it 'redirects to root path when user is not signed in' do
+      # Forcer explicitement la locale
+      I18n.locale = :fr
 
-    # Vérifier la traduction
-    translation = I18n.t('auth.authentication.login_required')
-    puts "Translation: #{translation}"
+      # Vérifier la traduction
+      translation = I18n.t('auth.authentication.login_required')
+      puts "Translation: #{translation}"
 
-    # Simule un utilisateur non connecté
-    allow(controller).to receive(:user_signed_in?).and_return(false)
+      # Simule un utilisateur non connecté
+      allow(controller).to receive(:user_signed_in?).and_return(false)
 
-    # Vérifie la redirection avec la traduction
-    expect(controller).to receive(:redirect_to).with(
-      root_path,
-      alert: translation
-    )
+      # Vérifie la redirection avec la traduction
+      expect(controller).to receive(:redirect_to).with(
+        root_path,
+        alert: translation
+      )
 
-    # Déclenche la méthode d'authentification
-    controller.send(:authenticate_user!)
+      # Déclenche la méthode d'authentification
+      controller.send(:authenticate_user!)
+    end
+
+    # Vérifie qu'on ne redirige pas si connecté
+    it 'does nothing when user is signed in' do
+      # Simule un utilisateur connecté
+      allow(controller).to receive(:user_signed_in?).and_return(true)
+
+      # Vérifie qu'aucune redirection n'est effectuée
+      expect(controller).not_to receive(:redirect_to)
+
+      # Déclenche la méthode d'authentification
+      controller.send(:authenticate_user!)
+    end
   end
-
-  # Vérifie qu'on ne redirige pas si connecté
-  it 'does nothing when user is signed in' do
-    # Simule un utilisateur connecté
-    allow(controller).to receive(:user_signed_in?).and_return(true)
-
-    # Vérifie qu'aucune redirection n'est effectuée
-    expect(controller).not_to receive(:redirect_to)
-
-    # Déclenche la méthode d'authentification
-    controller.send(:authenticate_user!)
-  end
-end
 
   describe '#login' do
     # Vérifie que login stocke l'ID en session
@@ -94,6 +94,30 @@ end
     it 'sets Current.user' do
       controller.send(:login, user)
       expect(Current.user).to eq(user)
+    end
+
+    context 'with remember me option' do
+      before do
+        allow(controller).to receive(:params).and_return({ remember_me: "1" })
+      end
+
+      it 'configures cookie options correctly in production' do
+        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("production"))
+
+        expect_any_instance_of(ActionDispatch::Cookies::CookieJar).to receive(:[]=)
+          .with(:remember_user_token, hash_including(httponly: true, secure: true))
+
+        controller.send(:login, user)
+      end
+
+      it 'configures cookie options correctly in development' do
+        allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("development"))
+
+        expect_any_instance_of(ActionDispatch::Cookies::CookieJar).to receive(:[]=)
+          .with(:remember_user_token, hash_including(httponly: true, secure: false))
+
+        controller.send(:login, user)
+      end
     end
   end
 

@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
   normalizes :email, with: ->(email) { email.strip.downcase }
+  validate :prevent_admin_role_change
 
   def self.human_attribute_name(attribute, *args)
     case attribute.to_sym
@@ -39,5 +40,12 @@ class User < ApplicationRecord
 
   def invalidate_remember_token
     remember_token.token = nil if remember_token
+  end
+
+  # méthode privée pour protéger le rôle admin
+  def prevent_admin_role_change
+    if role_changed? && email == ENV["ADMIN_EMAIL"] && persisted?
+      errors.add(:role, I18n.t("activerecord.errors.models.user.attributes.role.admin_change"))
+    end
   end
 end

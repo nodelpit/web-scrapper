@@ -51,6 +51,33 @@ RSpec.describe User, type: :model do
   end
  end
 
+  # Nouveau contexte pour la protection du rôle admin
+  describe "admin role protection" do
+    before do
+      ENV["ADMIN_EMAIL"] = "admin@example.com"
+    end
+
+    it "prevents changing role of main admin" do
+      admin = create(:user, email: ENV["ADMIN_EMAIL"], role: :admin)
+      expect(admin.update(role: :user)).to be false
+      expect(admin.errors[:role]).to include(I18n.t("activerecord.errors.models.user.attributes.role.admin_change"))
+    end
+
+    it "allows changing role of non-admin users" do
+      regular_user = create(:user, email: "user@example.com", role: :user)
+      expect(regular_user.update(role: :admin)).to be true
+    end
+
+    it "allows changing role of other admin users" do
+      other_admin = create(:user, email: "other_admin@example.com", role: :admin)
+      expect(other_admin.update(role: :user)).to be true
+    end
+
+    after do
+      ENV["ADMIN_EMAIL"] = nil
+    end
+   end
+
  describe "email normalization" do
    # Vérifie que l'email est converti en minuscules
    it "converts email to lowercase before saving" do

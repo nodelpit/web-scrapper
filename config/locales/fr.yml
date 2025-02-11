@@ -18,6 +18,8 @@ fr:
               invalid: "L'adresse email saisie n'est pas valide"
               taken: "Cette adresse email est déjà utilisée"
             # Validation de mot de passe
+            role:
+              admin_change: "L'administrateur principal ne peut pas être modifié"
             password:
               blank: "Le mot de passe est obligatoire"
               too_short: "Le mot de passe doit contenir au moins %{count} caractères"
