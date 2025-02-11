@@ -1,5 +1,9 @@
 class User < ApplicationRecord
   has_secure_password
+
+  # Définition de l'enum pour les rôles
+  enum :role, { user: 0, admin: 1 }
+
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
   normalizes :email, with: ->(email) { email.strip.downcase }
 

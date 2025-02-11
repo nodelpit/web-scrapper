@@ -29,6 +29,28 @@ RSpec.describe User, type: :model do
    end
  end
 
+ describe "roles" do
+  # Vérifie que le rôle par défaut est 'user'
+  it "has user role by default" do
+    expect(user.role).to eq("user")
+  end
+
+  # Vérifie la création d'un admin
+  it "can be an admin" do
+    admin = build(:user, :admin)
+    expect(admin.role).to eq("admin")
+  end
+
+  # Vérifie la méthode admin?
+  it "can check if user is admin" do
+    regular_user = build(:user)
+    admin_user = build(:user, :admin)
+
+    expect(regular_user.admin?).to be false
+    expect(admin_user.admin?).to be true
+  end
+ end
+
  describe "email normalization" do
    # Vérifie que l'email est converti en minuscules
    it "converts email to lowercase before saving" do
