@@ -66,3 +66,5 @@ group :development do
   gem "web-console"
   gem "letter_opener"
 end
+
+gem "httparty"
