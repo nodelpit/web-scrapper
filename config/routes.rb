@@ -19,6 +19,12 @@ Rails.application.routes.draw do
     resource :password
   end
 
+  namespace :chatbot do
+    resources :conversations do
+      resources :messages
+    end
+  end
+
   namespace :admin do
     root to: "dashboard#index"
     resources :users

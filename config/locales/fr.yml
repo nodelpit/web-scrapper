@@ -31,6 +31,13 @@ fr:
             password_challenge:
               invalid: "Le mot de passe actuel est incorrect"
 
+        chatbot/message:
+          attributes:
+            content:
+              blank: "Le message ne peut pas être vide"
+            sender_type:
+              inclusion: "Le type d'expéditeur n'est pas valide"
+
   auth:
     # Formulaire de connexion
     sessions:
@@ -134,6 +141,32 @@ fr:
       destroy:
         admin_error: "L'administrateur principal ne peut pas être supprimé"
         success: "Utilisateur supprimé avec succès"
+
+  chatbot:
+    authorization:
+      unauthorized_access: "Vous n'avez pas accès à cette conversation"
+    conversations:
+      index:
+        title: "Mes conversations"
+        new_conversation: "Nouvelle conversation"
+        no_conversations: "Vous n'avez pas encore de conversations"
+        start_conversation: "Démarrer une conversation"
+        message_placeholder: "Écrivez votre message..."
+        send: "Envoyer"
+        select_conversation: "Sélectionnez une conversation ou créez-en une nouvelle"
+      show:
+        title: "Conversation"
+        message_placeholder: "Écrivez votre message..."
+        send: "Envoyer"
+        back: "Retour aux conversations"
+      create:
+        success: "Nouvelle conversation créée"
+      destroy:
+        success: "Conversation supprimée"
+        confirm: "Êtes-vous sûr de vouloir supprimer cette conversation ?"
+    messages:
+      create:
+        error: "Le message n'a pas pu être envoyé"
 
   # Messages généraux de l'application
   common:
