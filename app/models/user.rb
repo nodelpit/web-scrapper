@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
 
+  has_many :chatbot_conversations, class_name: "Chatbot::Conversation"
+
   # Définition de l'enum pour les rôles
   enum :role, { user: 0, admin: 1 }
 
