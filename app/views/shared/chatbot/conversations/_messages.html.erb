@@ -1,0 +1,18 @@
+<% conversation.messages.each do |message| %>
+  <div class=" flex <%= message.sender_type %>">
+    <div class="<%= message.sender_type == 'user' ?
+      'bg-indigo-600 text-white rounded-md' :
+      'bg-slate-800 text-gray-100 rounded-md' %> p-4">
+
+      <div class="text-sm">
+        <%= message.content %>
+      </div>
+
+      <div class="<%= message.sender_type == 'user' ?
+        'text-indigo-200' :
+        'text-gray-400' %> text-xs mt-2">
+        <%= message.created_at.strftime("%H:%M") %>
+      </div>
+    </div>
+  </div>
+<% end %>

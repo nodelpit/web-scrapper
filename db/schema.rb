@@ -10,9 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_06_111731) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_13_113306) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "chatbot_conversations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_chatbot_conversations_on_user_id"
+  end
+
+  create_table "chatbot_messages", force: :cascade do |t|
+    t.bigint "conversation_id", null: false
+    t.text "content"
+    t.string "sender_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_chatbot_messages_on_conversation_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email"
@@ -24,4 +40,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_111731) do
     t.integer "role", default: 0
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
+
+  add_foreign_key "chatbot_conversations", "users"
+  add_foreign_key "chatbot_messages", "chatbot_conversations", column: "conversation_id"
 end

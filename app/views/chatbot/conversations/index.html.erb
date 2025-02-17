@@ -1,0 +1,51 @@
+<div class="flex min-h-screen">
+ <!-- Sidebar -->
+ <div class="w-80 border-r border-indigo-500 bg-slate-950 p-4">
+   <%= link_to t(".new_conversation"), chatbot_conversations_path,
+       data: { turbo_method: :post },
+       class: "w-full flex items-center justify-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500 transition-colors mb-4" %>
+
+   <turbo-frame id="conversations_list">
+     <div class="space-y-2">
+       <% @conversations.each do |conversation| %>
+         <div class="group relative">
+           <%= link_to chatbot_conversation_path(conversation),
+               data: { turbo_frame: "conversation", turbo_action: "replace" },
+               class: "block p-3 rounded-lg text-gray-300 hover:bg-slate-800 transition-colors #{@conversation&.id == conversation.id ? 'bg-slate-800 border-l-4 border-indigo-500' : ''}" do %>
+             <div class="font-medium">Conversation #<%= conversation.id %></div>
+             <div class="text-sm text-gray-400">
+               <%= conversation.created_at.strftime("%d/%m/%Y %H:%M") %>
+             </div>
+           <% end %>
+
+           <%= button_to chatbot_conversation_path(conversation), method: :delete,
+               class: "absolute text-xl right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity p-2 text-gray-400 hover:text-red-500",
+               data: { turbo_method: :delete, turbo_confirm: t("chatbot.conversations.destroy.confirm")} do %>
+             <i class='bx bx-trash'></i>
+           <% end %>
+         </div>
+       <% end %>
+     </div>
+   </turbo-frame>
+ </div>
+
+ <!-- Main content -->
+ <turbo-frame id="conversation" class="flex-1 flex flex-col bg-slate-900">
+  <%= turbo_stream_from "conversation_#{@conversation.id}" if @conversation %>
+    <% if @conversation %>
+      <%= render "shared/chatbot/conversations/container", conversation: @conversation %>
+
+      <%= form_with(model: [@conversation, @message],url: chatbot_conversation_messages_path(@conversation),scope: :message,class: "p-4 border-t border-indigo-500") do |f| %>
+        <div class="flex gap-2">
+          <%= f.text_area :content,placeholder: t(".message_placeholder"),
+          class: "flex-1 h-12 p-2 rounded-lg border border-slate-200 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 resize-none", required: true%>
+          <%= f.submit t(".send"),class: "px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500 transition-colors"%>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="flex-1 flex items-center justify-center text-slate-500">
+        <%= t(".select_conversation") %>
+      </div>
+    <% end %>
+</turbo-frame>
+</div>
