@@ -1,4 +1,6 @@
 import { Application } from "@hotwired/stimulus"
+import ScrollController from "./scroll_controller"
+import FlashController from "./flash_controller"
 
 // Créer une fonction personnalisée de chargement des contrôleurs
 function eagerLoadControllersFrom(directory, application) {
@@ -26,6 +28,10 @@ function eagerLoadControllersFrom(directory, application) {
 // Initialiser Stimulus
 const application = Application.start()
 application.debug = true
+
+// Enregistrer manuellement le contrôleur scroll
+application.register("scroll", ScrollController)
+application.register("flash", FlashController)
 
 // Charger automatiquement tous les contrôleurs du dossier
 eagerLoadControllersFrom("controllers", application)
